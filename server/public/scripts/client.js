@@ -3,7 +3,7 @@ $( document ).ready(onReady);
 function onReady() {
   console.log('DOM ready');
   getAndRenderList();
-  $('#addButton').on('click', newTask);
+  $('#addTask').on('click', newTask);
   $('body').on('click', '.deleteButton', deleteButton);
   $('body').on('click', '.markCompleteButton', markComplete);
 }
@@ -33,7 +33,28 @@ function getAndRenderList(){
 
     function newTask() {
     //     let newTask = $('#theTask')
-     }
+    console.log( 'in newTask');
+    // ajax call to server to POST koalas
+    let newTask = $('#theTask').val();
+    let mark_complete = $('#isItComplete').val();
+  
+    let tasksToSend = {
+      newTask: newTask,
+      mark_complete: mark_complete
+    };
+  
+    $.ajax({
+      method: 'POST',
+      url: '/task',
+      data: tasksToSend
+    }).then((response) => {
+      console.log(response);
+      getAndRenderList()
+    }).catch((error) => {
+      console.log('something broke in task POST', error);
+    })
+  }
+     
     
 
      function deleteButton(){

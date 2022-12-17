@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 const pool = require('..//server/modules/pool');
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json())
 app.use(express.static('server/public'));
 
 // ROUTES //
@@ -22,10 +23,31 @@ app.get('/task', (req, res) => {
         res.send(dbRes.rows);
       })
       .catch((dbErr) => {
-        console.log('error getting koalas', dbErr);
+        console.log('error getting tasks', dbErr);
         res.sendStatus(500);
       });
   });
+
+//POST
+app.post('/task', (req, res) => {
+    let newTask = req.body;
+    console.log('adding task', newTask);
+
+    let sqlQuery = `
+        INSERT INTO "tasks" ("task", "mark_complete")
+            VALUES ($1, $2,);
+    `
+    let sqlValues = [newTask.task, newTask.mark_complete];
+    pool.query(sqlQuery, sqlValues)
+    .then((dbRes) => {
+        res.sendStatus(201);
+    })
+    .catch((dbErr) => {
+        console.log('Error adding new task', dbErr);
+        res.sendStatus(500);
+    })
+})
+
 
 
 // Start listening for requests on a specific port
