@@ -10,15 +10,15 @@ function onReady() {
 
 function getAndRenderList(){
     console.log( 'rendering List');
-    // ajax call to server to GET koalas
+    // ajax call to server to GET tasks
     $.ajax({
       method: 'GET',
-      url: '/task'
+      url: '/getTask'
     }).then((response) => { 
       console.log(response);
       $('#theListItems').empty();
       for (let tasks of response) {
-          $('#viewKoalas').append(`
+          $('#theListItems').append(`
           <tr>
             <td>${tasks.task}</td>
             <td>${tasks.mark_complete}</td>
@@ -45,7 +45,7 @@ function getAndRenderList(){
   
     $.ajax({
       method: 'POST',
-      url: '/task',
+      url: '/postTask',
       data: tasksToSend
     }).then((response) => {
       console.log(response);

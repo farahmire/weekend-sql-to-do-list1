@@ -11,7 +11,7 @@ app.use(express.static('server/public'));
 // ROUTES //
 
 //GET 
-app.get('/task', (req, res) => {
+app.get('/getTask', (req, res) => {
     console.log('in task GET');
     let sqlQuery = `
       SELECT * FROM "tasks" 
@@ -29,15 +29,15 @@ app.get('/task', (req, res) => {
   });
 
 //POST
-app.post('/task', (req, res) => {
-    let newTask = req.body;
-    console.log('adding task', newTask);
+app.post('/postTask', (req, res) => {
+    let tasksToSend = req.body;
+    console.log('adding tasks', tasksToSend);
 
     let sqlQuery = `
-        INSERT INTO "tasks" ("task", "mark_complete")
-            VALUES ($1, $2,);
+        INSERT INTO "tasks" ("task","mark_complete")
+            VALUES ($1, $2);
     `
-    let sqlValues = [newTask.task, newTask.mark_complete];
+    let sqlValues = [tasksToSend.task, tasksToSend.mark_complete];
     pool.query(sqlQuery, sqlValues)
     .then((dbRes) => {
         res.sendStatus(201);
@@ -47,6 +47,7 @@ app.post('/task', (req, res) => {
         res.sendStatus(500);
     })
 })
+
 
 
 
