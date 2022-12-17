@@ -30,14 +30,15 @@ app.get('/getTask', (req, res) => {
 
 //POST
 app.post('/postTask', (req, res) => {
-    let tasksToSend = req.body;
-    console.log('adding tasks', tasksToSend);
+    
+    console.log('adding tasks',req.body );
 
     let sqlQuery = `
-        INSERT INTO "tasks" ("task","mark_complete")
-            VALUES ($1, $2);
+    INSERT INTO "tasks" 
+    ("task", "mark_complete")
+    VALUES ($1, $2);
     `
-    let sqlValues = [tasksToSend.task, tasksToSend.mark_complete];
+    let sqlValues = [req.body.task, req.body.markcomplete];
     pool.query(sqlQuery, sqlValues)
     .then((dbRes) => {
         res.sendStatus(201);

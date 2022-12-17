@@ -36,11 +36,11 @@ function getAndRenderList(){
     console.log( 'in newTask');
     // ajax call to server to POST koalas
     let newTask = $('#theTask').val();
-    let mark_complete = $('#isItComplete').val();
+    let markcomplete = $('#isItComplete').val();
   
     let tasksToSend = {
-      newTask: newTask,
-      mark_complete: mark_complete
+      task: newTask,
+      markcomplete: markcomplete
     };
   
     $.ajax({
