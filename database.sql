@@ -1,7 +1,7 @@
 CREATE TABLE "tasks" (
 	"id" SERIAL PRIMARY KEY,
 	"task" VARCHAR(80) NOT NULL,
-	"mark_complete" VARCHAR(80)
+	"mark_complete" BOOLEAN NOT NULL DEFAULT FALSE 
 );
 
 INSERT INTO "tasks"
