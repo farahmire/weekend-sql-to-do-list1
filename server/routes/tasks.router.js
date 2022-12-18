@@ -66,4 +66,28 @@ tasksRouter.delete('/:id', (req,res)=> {
     });
 
 
+    tasksRouter.put('/:id', (req, res)=> {
+        console.log('req.params', req.params);
+        console.log('req.body', req.body);
+        let idToUpdate = req.params.id;
+        let newTaskCompletion = req.body.markComplete;
+    
+        let sqlQuery = `
+            UPDATE "list"
+                SET "mark_complete"=$1
+                WHERE "id"=$2;
+        `
+        let sqlValues = [newTaskCompletion, idToUpdate];
+    
+        pool.query(sqlQuery, sqlValues)
+            .then((dbRes) => {
+                res.sendStatus(200);
+            })
+            .catch((dbErr) => {
+                console.log('something went wrong in PUT /koalas/:id', dbErr);
+                res.sendStatus(500);
+            })
+    })
+
+
     module.exports = tasksRouter;

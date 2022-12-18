@@ -5,7 +5,7 @@ function onReady() {
   getAndRenderList();
   $('#addTask').on('click', newTask);
   $('body').on('click','.deleteButton', deleteButton);
-  // $('body').on('click', '.markCompleteButton', markComplete);
+  $('body').on('click', '.markCompleteButton', markComplete);
 }
 
 function getAndRenderList() {
@@ -37,9 +37,12 @@ function newTask() {
   console.log('in newTask');
   // ajax call to server to POST koalas
   let newInput = $('#theTask').val();
+  let markComplete = $('#notDone').val();
+
   // let markcomplete = $('#isItComplete').val();
   let tasksToSend = {
-    task: newInput
+    task: newInput,
+    markComplete: markComplete
   };
 
   $.ajax({
@@ -75,22 +78,22 @@ function deleteButton()  {
 
 
 function markComplete() {
-  // console.log('koala updated');
-  // let idToUpdate = $(this).parent().parent().data().id;
-  // console.log(idToUpdate);
+  console.log('task updated');
+  let idToUpdate = $(this).parent().parent().data().id;
+  console.log(idToUpdate);
 
-  // $.ajax({
-  //   method: 'PUT',
-  //   url: `/koalas/${idToUpdate}`,
-  //   data: {
-  //     readyForTransfer: 'Y'
-  //   }
-  // }).then((response) => {
-  //   console.log(response);
-  //   getAndRenderKoalas();
-  // }).catch((error) => {
-  //   console.log('readyKoalaForTransfer not working', error);
-  // })
+  $.ajax({
+    method: 'PUT',
+    url: `/task/${idToUpdate}`,
+    data: {
+      markComplete: '✅'
+    }
+  }).then((response) => {
+    console.log(response);
+    getAndRenderList();
+  }).catch((error) => {
+    console.log('markComplete not working', error);
+  })
 }
 
 
