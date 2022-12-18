@@ -19,7 +19,7 @@ function getAndRenderList() {
     $('#theListItems').empty();
     for (let tasks of response) {
       $('#theListItems').append(`
-          <tr>
+          <tr data-id=${tasks.id}>
             <td>${tasks.task}</td>
             <td>${tasks.mark_complete}</td>
             <td><button class="markCompleteButton">Complete</button></td>
@@ -60,7 +60,6 @@ function deleteButton()  {
   console.log('task removed');
   let idToDelete = $(this).parent().parent().data().id;
   console.log(idToDelete);
-
   $.ajax({
     method: 'DELETE',
     url: `/task/${idToDelete}`
