@@ -1,25 +1,20 @@
-
-th{
-    width: 1000px;
-}
-table, th, tbody{
+table, th, tbody {
     border-collapse: collapse;
     border:10px;
     border-style:double
 }
-body{
+th {
+    width: 1000px;
+}
+body {
     background-color: skyblue
 }
-
-#addTask{
+#addTask {
     color:blue;
     background-color: orangered;
     border: 5px;
 }
-
-
-
-.markCompleteButton{
+.markCompleteButton {
     color: greenyellow;
     background-color: black
 }
