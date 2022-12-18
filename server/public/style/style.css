@@ -2,24 +2,31 @@
 th{
     width: 1000px;
 }
-table, th, tbody, .deleteButton, .completeButton{
+table, th, tbody{
     border-collapse: collapse;
     border:10px;
     border-style:double
 }
 body{
-    background-color: beige;
+    background-color: skyblue
 }
 
-#submitButton{
-    color:rgb(255, 232, 127);
-    background-color:black;
+#addTask{
+    color:blue;
+    background-color: orangered;
+    border: 5px;
 }
 
-.headers{
+
+
+.markCompleteButton{
+    color: greenyellow;
+    background-color: black
+}
+
+.deleteButton {
+    color: red;
     background-color: black;
-    color: green;
-  
-   
 }
+
 
