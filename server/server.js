@@ -56,7 +56,7 @@ app.delete('/task/:id', (req,res)=> {
     let idToDelete = req.params.id;
   
     let sqlQuery =`
-    DELETE from "list"
+    DELETE FROM "list"
     WHERE "id" =$1;`
     let sqlValues = [idToDelete];
     pool.query(sqlQuery, sqlValues) /// [req.params.id] another way
@@ -65,13 +65,10 @@ app.delete('/task/:id', (req,res)=> {
             res.sendStatus(201);
         })
         .catch((dbErr) => {
-            console.log(' broke in DELETE /id:1')
+            console.log('broke in DELETE /id:1')
             res.sendStatus(500);
         })
     });
-
-
-
 
 
 // Start listening for requests on a specific port
