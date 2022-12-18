@@ -11,10 +11,10 @@ app.use(express.static('server/public'));
 // ROUTES //
 
 //GET 
-app.get('/getTask', (req, res) => {
+app.get('/task', (req, res) => {
     console.log('in task GET');
     let sqlQuery = `
-      SELECT * FROM "tasks" 
+      SELECT * FROM "list" 
         ORDER BY "id";
     `;
     pool.query(sqlQuery)
@@ -29,16 +29,16 @@ app.get('/getTask', (req, res) => {
   });
 
 //POST
-app.post('/postTask', (req, res) => {
-    
+app.post('/task', (req, res) => {
+    let newTask = req.body;
     console.log('adding tasks',req.body );
 
     let sqlQuery = `
-    INSERT INTO "tasks" 
+    INSERT INTO "list" 
     ("task", "mark_complete")
     VALUES ($1, $2);
     `
-    let sqlValues = [req.body.task, req.body.markcomplete];
+    let sqlValues = [newTask.task, newTask.markcomplete];
     pool.query(sqlQuery, sqlValues)
     .then((dbRes) => {
         res.sendStatus(201);

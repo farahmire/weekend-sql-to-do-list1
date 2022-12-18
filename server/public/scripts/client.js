@@ -13,7 +13,7 @@ function getAndRenderList(){
     // ajax call to server to GET tasks
     $.ajax({
       method: 'GET',
-      url: '/getTask'
+      url: '/task'
     }).then((response) => { 
       console.log(response);
       $('#theListItems').empty();
@@ -45,7 +45,7 @@ function getAndRenderList(){
   
     $.ajax({
       method: 'POST',
-      url: '/postTask',
+      url: '/task',
       data: tasksToSend
     }).then((response) => {
       console.log(response);
