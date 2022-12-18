@@ -1,0 +1,25 @@
+
+th{
+    width: 1000px;
+}
+table, th, tbody, .deleteButton, .completeButton{
+    border-collapse: collapse;
+    border:10px;
+    border-style:double
+}
+body{
+    background-color: beige;
+}
+
+#submitButton{
+    color:rgb(255, 232, 127);
+    background-color:black;
+}
+
+.headers{
+    background-color: black;
+    color: green;
+  
+   
+}
+

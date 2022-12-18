@@ -4,7 +4,7 @@ function onReady() {
   console.log('DOM ready');
   getAndRenderList();
   $('#addTask').on('click', newTask);
-  $('body').on('click','.deleteButton', deleteButton);
+  $('body').on('click', '.deleteButton', deleteButton);
   $('body').on('click', '.markCompleteButton', markComplete);
 }
 
@@ -18,15 +18,25 @@ function getAndRenderList() {
     console.log(response);
     $('#theListItems').empty();
     for (let tasks of response) {
+      console.log(`Response ${response}`)
+      if (tasks.markComplete === true) { 
+        $('#theListItems').append(`
+          <tr class="completed" data-id=${tasks.id}>
+            <td>${tasks.task}</td>
+            <td>${tasks.mark_complete ? '✅' : '🛑'}</td>
+            <td><button class="deleteButton">Delete</button></td>
+          </tr>
+          `).css("background-color", "green");
+        } else {
       $('#theListItems').append(`
           <tr data-id=${tasks.id}>
             <td>${tasks.task}</td>
-            <td>${tasks.mark_complete}</td>
+            <td>${tasks.mark_complete ? '✅' : '🛑'}</td>
             <td><button class="markCompleteButton">Complete</button></td>
             <td><button class="deleteButton">Delete</button></td>
           </tr>
-          `);
-    }
+          `)};
+        }
   }
   )
 }
@@ -59,7 +69,7 @@ function newTask() {
 
 
 
-function deleteButton()  {
+function deleteButton() {
   console.log('task removed');
   let idToDelete = $(this).parent().parent().data().id;
   console.log(idToDelete);
@@ -86,7 +96,7 @@ function markComplete() {
     method: 'PUT',
     url: `/task/${idToUpdate}`,
     data: {
-      markComplete: '✅'
+      markComplete:  true
     }
   }).then((response) => {
     console.log(response);
@@ -95,6 +105,7 @@ function markComplete() {
     console.log('markComplete not working', error);
   })
 }
+
 
 
 
